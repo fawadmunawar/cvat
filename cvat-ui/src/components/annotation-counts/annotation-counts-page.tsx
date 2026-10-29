@@ -7,10 +7,10 @@ import './styles.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Col, Row } from 'antd/lib/grid';
-import { Result } from 'antd/lib/result';
-import { Empty } from 'antd/lib/empty';
+import Result from 'antd/lib/result';
+import Empty from 'antd/lib/empty';
 import { Button } from 'antd/lib/button';
-import { Badge } from 'antd/lib/badge';
+import Badge from 'antd/lib/badge';
 import { Spin } from 'antd/lib/spin';
 import { Bar } from 'react-chartjs-2';
 import {
