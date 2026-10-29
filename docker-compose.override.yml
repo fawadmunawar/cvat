@@ -1,0 +1,24 @@
+# Adds the annotation-count WebSocket service to the default stack.
+# Merged automatically by `docker compose up`.
+services:
+  cvat_test_ws:
+    container_name: cvat_test_ws
+    image: cvat/server:${CVAT_VERSION:-dev}
+    restart: always
+    depends_on:
+      cvat_redis_inmem:
+        condition: service_started
+    entrypoint: ["python3", "/opt/cvat/manage.py"]
+    command: ["test_ws_server", "--host", "0.0.0.0", "--port", "8090"]
+    environment:
+      CVAT_REDIS_INMEM_HOST: cvat_redis_inmem
+      CVAT_REDIS_INMEM_PORT: 6379
+      CVAT_REDIS_INMEM_PASSWORD: ""
+      CVAT_POSTGRES_HOST: cvat_db
+      CVAT_ANALYTICS: 1
+    ports:
+      - "8090:8090"
+    networks:
+      cvat:
+        aliases:
+          - cvat-test-ws
