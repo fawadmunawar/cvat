@@ -1,6 +1,31 @@
 # Adds the annotation-count WebSocket service to the default stack.
 # Merged automatically by `docker compose up`.
+#
+# Also re-adds the build contexts for the locally built images (the base
+# compose only references prebuilt cvat/server and cvat/ui images, so
+# `docker compose up -d --build` would otherwise be a no-op).
 services:
+  cvat_server:
+    build:
+      context: .
+      args:
+        http_proxy:
+        https_proxy:
+        socks_proxy:
+        CLAM_AV:
+        CVAT_DEBUG_ENABLED:
+        COVERAGE_PROCESS_START:
+
+  cvat_ui:
+    build:
+      context: .
+      args:
+        http_proxy:
+        https_proxy:
+        no_proxy:
+        socks_proxy:
+      dockerfile: Dockerfile.ui
+
   cvat_test_ws:
     container_name: cvat_test_ws
     image: cvat/server:${CVAT_VERSION:-dev}
