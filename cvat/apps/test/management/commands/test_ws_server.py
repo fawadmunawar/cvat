@@ -41,8 +41,11 @@ class Command(BaseCommand):
         asyncio.run(self.serve(options["host"], options["port"]))
 
     async def serve(self, host: str, port: int) -> None:
+        password = settings.REDIS_INMEM_SETTINGS["PASSWORD"]
+        auth = f":{password}@" if password else ""
         redis_url = (
-            f"redis://{settings.CVAT_REDIS_INMEM_HOST}:{settings.CVAT_REDIS_INMEM_PORT}/0"
+            f"redis://{auth}{settings.REDIS_INMEM_SETTINGS['HOST']}:"
+            f"{settings.REDIS_INMEM_SETTINGS['PORT']}/0"
         )
         client = aioredis.from_url(redis_url)
         pubsub = client.pubsub()

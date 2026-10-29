@@ -19,9 +19,9 @@ DEBOUNCE_SECONDS = 1
 
 def get_redis_connection():
     return redis.Redis(
-        host=settings.CVAT_REDIS_INMEM_HOST,
-        port=int(settings.CVAT_REDIS_INMEM_PORT),
-        password=settings.CVAT_REDIS_INMEM_PASSWORD or None,
+        host=settings.REDIS_INMEM_SETTINGS["HOST"],
+        port=int(settings.REDIS_INMEM_SETTINGS["PORT"]),
+        password=settings.REDIS_INMEM_SETTINGS["PASSWORD"] or None,
         socket_connect_timeout=1,
         socket_timeout=1,
     )
